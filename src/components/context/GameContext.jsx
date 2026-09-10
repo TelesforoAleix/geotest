@@ -1,6 +1,7 @@
 import React, { createContext, useState } from "react";
 import { populationQuestion, altitudeQuestion, surfaceQuestion } from "../../logic/municipis";
 import { capitalComarca, comarcaCapital, comarcaProvincia } from "../../logic/comarques"
+import { locateComarcaQuestion, municipiComarcaQuestion } from "../../logic/map";
 
 const GameContext = createContext();
 
@@ -34,12 +35,25 @@ export function GameProvider({ children }) {
     }
   }
 
+  const getQuestionMap = () => {
+    switch (gameTopic) {
+      case 'municipiComarca':
+        return municipiComarcaQuestion();
+      case 'locateComarca':
+        return locateComarcaQuestion();
+      default:
+        return null;
+    }
+  };
+
   const getQuestion = () => {
     switch (gameMode) {
       case 'questionAB':
         return getQuestionAB();
       case 'questionTest':
         return getQuestionTest();
+      case 'questionMap':
+        return getQuestionMap();
       default:
         return null;
     }

@@ -19,6 +19,8 @@ function GameMenu() {
       <button className="game-buttons" onClick={() => onSetGameModeAndStart('questionTest', 'capital')}>Test | Capital</button>
       <button className="game-buttons" onClick={() => onSetGameModeAndStart('questionTest', 'comarca')}>Test | Comarques</button>
       <button className="game-buttons" onClick={() => onSetGameModeAndStart('questionTest', 'provincia')}>Test | Provincies</button>
+      <button className="game-buttons" onClick={() => onSetGameModeAndStart('questionMap', 'municipiComarca')}>Mapa | Comarques</button>
+      <button className="game-buttons" onClick={() => onSetGameModeAndStart('questionMap', 'locateComarca')}>Mapa | Localitza comarca</button>
     </div>
   );
 }

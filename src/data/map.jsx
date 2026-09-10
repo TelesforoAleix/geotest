@@ -1,8 +1,8 @@
 import React from "react";
 
-function Map() {
+function Map({ containerRef }) {
   return (
-    <div style={{ width: '360px', height: '360px' }}>
+    <div className="catalonia-map" ref={containerRef}>
     <svg
         xmlns="http://www.w3.org/2000/svg"
         id="svg29869"

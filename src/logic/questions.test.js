@@ -1,5 +1,7 @@
 import { altitudeQuestion, populationQuestion, surfaceQuestion } from "./municipis";
 import { capitalComarca, comarcaCapital, comarcaProvincia } from "./comarques";
+import { locateComarcaQuestion, municipiComarcaQuestion } from "./map";
+import { mappedComarques } from "../data/comarcaMap";
 
 describe("preguntes de GeoTest", () => {
   test.each([
@@ -23,5 +25,19 @@ describe("preguntes de GeoTest", () => {
 
   test("el test de províncies escriu Girona correctament", () => {
     expect([comarcaProvincia().option1, comarcaProvincia().option2, comarcaProvincia().option3, comarcaProvincia().option4]).toContain("Girona");
+  });
+
+  test("la pregunta del mapa demana un municipi d'una comarca seleccionable", () => {
+    const question = municipiComarcaQuestion();
+
+    expect(question.municipi).toBeTruthy();
+    expect(mappedComarques.has(question.correctComarca)).toBe(true);
+  });
+
+  test("la pregunta de localització demana una comarca seleccionable", () => {
+    const question = locateComarcaQuestion();
+
+    expect(question.prompt).toBe(question.correctComarca);
+    expect(mappedComarques.has(question.correctComarca)).toBe(true);
   });
 });

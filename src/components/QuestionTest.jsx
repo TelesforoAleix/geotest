@@ -25,16 +25,22 @@ function QuestionTest() {
  }
 
  useEffect(() => {
-   if (lifes === 0) {
-     setGameOver(true);
-   } else if (round > 0) {
-     const timeout = setTimeout(() => {
-       setSelectedOption(null);
-       setAnswered(false);
-       setQuestion(getQuestion());
-     }, 2000);
-     return () => clearTimeout(timeout);
+   if (round === 0) {
+     return undefined;
    }
+
+   const timeout = setTimeout(() => {
+     if (lifes === 0) {
+       setGameOver(true);
+       return;
+     }
+
+     setSelectedOption(null);
+     setAnswered(false);
+     setQuestion(getQuestion());
+   }, 2000);
+
+   return () => clearTimeout(timeout);
  }, [round, lifes, getQuestion]);
 
  useEffect(() => {
@@ -71,11 +77,11 @@ function QuestionTest() {
         disabled={answered}
         style={{
           backgroundColor:
-            answered && selectedOption === question[optionKey]
-              ? question[optionKey] === question.correctOption
-                ? "green"
-                : "red"
-              : "initial",
+            answered && question[optionKey] === question.correctOption
+              ? "green"
+              : answered && selectedOption === question[optionKey]
+                ? "red"
+                : "initial",
         }}
       >
         {question[optionKey]}

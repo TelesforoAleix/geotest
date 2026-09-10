@@ -1,23 +1,85 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CataloniaMap from "./CataloniaMap";
-import { ReactSVG } from "react-svg";
-
-
+import ScoreContext from "./context/ScoreContext";
+import GameContext from "./context/GameContext";
+import GameOverScreen from "./GameOVerScreen";
 
 function QuestionMap() {
+  const [question, setQuestion] = useState(null);
+  const [selectedComarca, setSelectedComarca] = useState(null);
+  const [answered, setAnswered] = useState(false);
+  const [round, setRound] = useState(0);
+  const [gameOver, setGameOver] = useState(false);
+  const { increaseScore, reduceLife, lifes, restartGame } = useContext(ScoreContext);
+  const { getQuestion } = useContext(GameContext);
 
+  const checkAnswer = (comarca) => {
+    setSelectedComarca(comarca);
+    setAnswered(true);
 
-    return (
-        <div className="question-test">
-            <h2 className="question">Title</h2>
-            <h4 className="hint">Hint</h4>
-            <div className="map">
-            <CataloniaMap />
-            </div>
+    if (comarca === question.correctComarca) {
+      increaseScore();
+    } else {
+      reduceLife();
+    }
 
-        </div>
+    setRound((previousRound) => previousRound + 1);
+  };
 
-    )
+  useEffect(() => {
+    setQuestion(getQuestion());
+  }, [getQuestion]);
+
+  useEffect(() => {
+    if (round === 0) {
+      return undefined;
+    }
+
+    const timeout = setTimeout(() => {
+      if (lifes === 0) {
+        setGameOver(true);
+        return;
+      }
+
+      setSelectedComarca(null);
+      setAnswered(false);
+      setQuestion(getQuestion());
+    }, 2000);
+
+    return () => clearTimeout(timeout);
+  }, [getQuestion, lifes, round]);
+
+  const restart = () => {
+    setRound(0);
+    setGameOver(false);
+    restartGame();
+    setSelectedComarca(null);
+    setAnswered(false);
+    setQuestion(getQuestion());
+  };
+
+  if (gameOver) {
+    return <GameOverScreen onRestart={restart} />;
+  }
+
+  if (!question) {
+    return <div className="message">Loading...</div>;
+  }
+
+  return (
+    <div className="question-map">
+      <h2 className="question">{question.title}</h2>
+      <h4 className="hint">{question.prompt}</h4>
+      <div className="map">
+        <CataloniaMap
+          onSelect={checkAnswer}
+          selectedComarca={selectedComarca}
+          correctComarca={answered ? question.correctComarca : null}
+          disabled={answered}
+        />
+      </div>
+    </div>
+  );
 }
 
 export default QuestionMap;

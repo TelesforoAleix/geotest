@@ -24,16 +24,22 @@ function QuestionAB() {
   }
 
   useEffect(() => {
-    if (lifes === 0) {
-      setGameOver(true);
-    } else if (round > 0) {
-      const timeout = setTimeout(() => {
-        setSelectedOption(null);
-        setAnswered(false);
-        setQuestion(getQuestion());
-      }, 2000);
-      return () => clearTimeout(timeout);
+    if (round === 0) {
+      return undefined;
     }
+
+    const timeout = setTimeout(() => {
+      if (lifes === 0) {
+        setGameOver(true);
+        return;
+      }
+
+      setSelectedOption(null);
+      setAnswered(false);
+      setQuestion(getQuestion());
+    }, 2000);
+
+    return () => clearTimeout(timeout);
   }, [round, lifes, getQuestion]);
 
   useEffect(() => {
@@ -82,11 +88,11 @@ function QuestionAB() {
           disabled={answered}
           style={{
             backgroundColor:
-              answered && selectedOption === question.option1
-                ? question.option1 === question.answer
-                  ? "green"
-                  : "red"
-                : "initial",
+              answered && question.option1 === question.answer
+                ? "green"
+                : answered && selectedOption === question.option1
+                  ? "red"
+                  : "initial",
           }}>
           {question.option1.municipi}
           <br />
@@ -102,11 +108,11 @@ function QuestionAB() {
           disabled={answered}
           style={{
             backgroundColor:
-              answered && selectedOption === question.option2
-                ? question.option2 === question.answer
-                  ? "green"
-                  : "red"
-                : "initial",
+              answered && question.option2 === question.answer
+                ? "green"
+                : answered && selectedOption === question.option2
+                  ? "red"
+                  : "initial",
           }}
         >
           {question.option2.municipi}
