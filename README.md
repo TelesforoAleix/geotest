@@ -1,18 +1,18 @@
 # GeoTest
 
-Un joc curt de geografia de Catalunya fet amb dades locals d'Idescat.
+Un joc de geografia catalana: municipis i comarques.
 
 Juga a [geotest.aleixmorenotelesforo.com](https://geotest.aleixmorenotelesforo.com).
 
-## Desenvolupament local
+## Executar-lo en local
 
-Cal Node.js 20 o superior.
-
-```sh
+```bash
 npm install
-npm run dev
+npm start
 ```
 
-Obre `http://localhost:3000`.
+Obre [http://localhost:3000](http://localhost:3000). Per generar la versió de producció:
 
-Les dades incloses són les instantànies originals d'Idescat: *Altitud, superfície i població. Municipis* (2023) i *Orografia. Cims principals* (2021). Font: [Idescat](https://www.idescat.cat/).
+```bash
+npm run build
+```
