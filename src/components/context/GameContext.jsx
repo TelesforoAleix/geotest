@@ -2,12 +2,14 @@ import React, { createContext, useState } from "react";
 import { populationQuestion, altitudeQuestion, surfaceQuestion } from "../../logic/municipis";
 import { capitalComarca, comarcaCapital, comarcaProvincia } from "../../logic/comarques"
 import { locateComarcaQuestion, municipiComarcaQuestion } from "../../logic/map";
+import { mountainPeakQuestion, mountainRangeQuestion } from "../../logic/muntanyes";
 
 const GameContext = createContext();
 
 export function GameProvider({ children }) {
   const [gameMode, setGameMode] = useState(null);
   const [gameTopic, setGameTopic] = useState(null);
+  const [partyMode, setPartyMode] = useState(false);
 
   const getQuestionAB = () => {
     switch (gameTopic) {
@@ -30,6 +32,10 @@ export function GameProvider({ children }) {
         return comarcaCapital();
       case 'provincia':
         return comarcaProvincia();
+      case 'mountainPeak':
+        return mountainPeakQuestion();
+      case 'mountainRange':
+        return mountainRangeQuestion();
       default:
         return null;
     }
@@ -60,7 +66,7 @@ export function GameProvider({ children }) {
   }
 
   return (
-    <GameContext.Provider value={{ gameMode, gameTopic, setGameMode, getQuestion, setGameTopic }}>
+    <GameContext.Provider value={{ gameMode, gameTopic, partyMode, setGameMode, getQuestion, setGameTopic, setPartyMode }}>
       {children}
     </GameContext.Provider>
   );

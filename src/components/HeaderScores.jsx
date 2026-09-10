@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import ScoreContext from "./context/ScoreContext";
+import GameContext from "./context/GameContext";
 
 function HeaderScores() {
-  const { score, bestScore, totalScore } = useContext(ScoreContext);
-  const { lifes, reduceLife, restartLife } = useContext(ScoreContext);
+  const { score, bestScore, totalScore, lifes, safePasses } = useContext(ScoreContext);
+  const { partyMode } = useContext(GameContext);
 
   return (
     <div className="header-scores">
@@ -12,7 +13,10 @@ function HeaderScores() {
         <span> Record: {bestScore} </span>
       </div>
       <div className="header-scores-bottom">
-        <span id="lifes"> {"❤ ".repeat(lifes) + "  "}</span>
+        <span id="lifes" aria-label={partyMode ? "Glops disponibles" : "Vides"}>
+          {partyMode ? "🍺 ".repeat(lifes) : "❤ ".repeat(lifes)}
+          {partyMode && safePasses > 0 ? ` 🛡 ${safePasses}` : ""}
+        </span>
         <span id="score"> Punts: {score} </span>
       </div>
     </div>

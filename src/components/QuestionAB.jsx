@@ -2,12 +2,13 @@ import React, { useState, useContext, useEffect } from "react";
 import ScoreContext from "./context/ScoreContext";
 import GameContext from "./context/GameContext";
 import GameOverScreen from "./GameOVerScreen";
+import PartyMessage from "./PartyMessage";
 
 function QuestionAB() {
   const [question, setQuestion] = useState(null);
   const [selectedOption, setSelectedOption] = useState(null);
   const [answered, setAnswered] = useState(false);
-  const { increaseScore, reduceLife, lifes, restartGame } = useContext(ScoreContext);
+  const { increaseScore, reduceLife, lifes, restartGame, clearPartyMessage } = useContext(ScoreContext);
   const { getQuestion, gameTopic } = useContext(GameContext);
   const [round, setRound] = useState(0);
   const [gameOver, setGameOver] = useState(false);
@@ -36,11 +37,12 @@ function QuestionAB() {
 
       setSelectedOption(null);
       setAnswered(false);
+      clearPartyMessage();
       setQuestion(getQuestion());
     }, 2000);
 
     return () => clearTimeout(timeout);
-  }, [round, lifes, getQuestion]);
+  }, [round, lifes, getQuestion, clearPartyMessage]);
 
   useEffect(() => {
     setQuestion(getQuestion());
@@ -50,6 +52,7 @@ function QuestionAB() {
     setRound(0);
     setGameOver(false);
     restartGame();
+    clearPartyMessage();
     setAnswered(false);
     setQuestion(getQuestion());
   };
@@ -72,13 +75,14 @@ function QuestionAB() {
   }
 
   if (!question) {
-    return <div className="message">Loading...</div>;
+    return <div className="message">Carregant...</div>;
   }
 
 
   return (
     <div className="question-test">
       <h2 className="question">{question.title}</h2>
+      <PartyMessage />
       <div className="question-ab">
 
 

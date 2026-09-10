@@ -1,6 +1,7 @@
 import { altitudeQuestion, populationQuestion, surfaceQuestion } from "./municipis";
 import { capitalComarca, comarcaCapital, comarcaProvincia } from "./comarques";
 import { locateComarcaQuestion, municipiComarcaQuestion } from "./map";
+import { mountainPeakQuestion, mountainRangeQuestion } from "./muntanyes";
 import { mappedComarques } from "../data/comarcaMap";
 
 describe("preguntes de GeoTest", () => {
@@ -15,7 +16,7 @@ describe("preguntes de GeoTest", () => {
     expect([question.option1, question.option2]).toContain(question.answer);
   });
 
-  test.each([capitalComarca, comarcaCapital, comarcaProvincia])("cada test ofereix quatre opcions i una resposta disponible", (makeQuestion) => {
+  test.each([capitalComarca, comarcaCapital, comarcaProvincia, mountainPeakQuestion, mountainRangeQuestion])("cada test ofereix quatre opcions i una resposta disponible", (makeQuestion) => {
     const question = makeQuestion();
     const options = [question.option1, question.option2, question.option3, question.option4];
 

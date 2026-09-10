@@ -133,6 +133,54 @@ footer {
   align-items: center;
 }
 
+.party-switch {
+  width: min(280px, calc(100vw - 32px));
+  border-radius: 10px;
+  border: 2px solid #252525;
+  background: #fafafa;
+  box-shadow: 3px 3px #252525;
+  margin: 20px 10px 6px;
+  display: flex;
+  overflow: hidden;
+}
+
+.party-switch-option {
+  width: 50%;
+  border: 0;
+  background: transparent;
+  padding: 7px 12px;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.party-switch-option + .party-switch-option {
+  border-left: 2px solid #252525;
+}
+
+.party-switch-option.is-active {
+  background: #dbeafe;
+}
+
+.party-notice {
+  width: min(420px, calc(100vw - 32px));
+  margin: 24px auto;
+  padding: 20px;
+  border: 2px solid #252525;
+  border-radius: 10px;
+  background: #fafafa;
+  box-shadow: 3px 3px #252525;
+}
+
+.party-notice p,
+.party-notice li {
+  line-height: 1.45;
+}
+
+.party-notice ul {
+  padding-left: 22px;
+}
+
 .game-buttons {
   width: min(280px, calc(100vw - 32px));
   height: 54px;
@@ -258,6 +306,73 @@ footer > p {
   margin: 0px 0px 20px 0px;
 }
 
+.party-message {
+  width: min(300px, calc(100vw - 32px));
+  margin: 0 0 12px;
+  padding: 8px 12px;
+  border: 2px solid #252525;
+  border-radius: 10px;
+  background: #ffd166;
+  color: #252525;
+  font-size: 0.95rem;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.party-game-over {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.party-mode {
+  background: #24111b;
+  color: #fff4e7;
+}
+
+.party-mode header,
+.party-mode footer,
+.party-mode main {
+  background: #24111b;
+  color: #fff4e7;
+  border-color: #ffb347;
+}
+
+.party-mode .header-scores span {
+  color: #fff4e7;
+}
+
+.party-mode .header-button,
+.party-mode .game-buttons,
+.party-mode .game-buttons-ab,
+.party-mode .button,
+.party-mode .party-switch,
+.party-mode .party-notice,
+.party-mode .hint,
+.party-mode .message {
+  background: #3b1b2b;
+  color: #fff4e7;
+  border-color: #ffb347;
+  box-shadow: 3px 3px #ffb347;
+}
+
+.party-mode .party-switch-option {
+  color: #fff4e7;
+}
+
+.party-mode .party-switch-option + .party-switch-option {
+  border-color: #ffb347;
+}
+
+.party-mode .party-switch-option.is-active {
+  background: #7a263f;
+}
+
+.party-mode .party-message {
+  background: #ffb347;
+  color: #24111b;
+  border-color: #fff4e7;
+}
+
 @media (max-width: 480px) {
   header {
     height: 17vh;
@@ -304,5 +419,10 @@ footer > p {
 
   .game-buttons-ab {
     height: 114px;
+  }
+
+  .party-notice {
+    margin: 18px auto;
+    padding: 16px;
   }
 }

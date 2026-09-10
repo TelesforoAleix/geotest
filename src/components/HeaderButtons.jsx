@@ -15,7 +15,7 @@ function HeaderButtons({ menuButton, questionTest, questionAB }) {
   return (
     <div className="header-buttons">
       <button className="header-button" onClick={goMenu}>
-        Menu
+        Menú
       </button>
     </div>
   );

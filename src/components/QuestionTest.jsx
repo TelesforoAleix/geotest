@@ -2,13 +2,14 @@ import React, { useState, useContext, useEffect } from "react";
 import ScoreContext from "./context/ScoreContext";
 import GameContext from "./context/GameContext";
 import GameOverScreen from "./GameOVerScreen";
+import PartyMessage from "./PartyMessage";
 
 
 function QuestionTest() {
   const [question, setQuestion] = useState(null);
   const [selectedOption, setSelectedOption] = useState(null);
   const [answered, setAnswered] = useState(false);
-  const { increaseScore, reduceLife, lifes, restartGame } = useContext(ScoreContext);
+  const { increaseScore, reduceLife, lifes, restartGame, clearPartyMessage } = useContext(ScoreContext);
   const { getQuestion, gameTopic } = useContext(GameContext);
   const [round, setRound] = useState(0);
   const [gameOver, setGameOver] = useState(false);
@@ -37,11 +38,12 @@ function QuestionTest() {
 
      setSelectedOption(null);
      setAnswered(false);
+     clearPartyMessage();
      setQuestion(getQuestion());
    }, 2000);
 
    return () => clearTimeout(timeout);
- }, [round, lifes, getQuestion]);
+ }, [round, lifes, getQuestion, clearPartyMessage]);
 
  useEffect(() => {
    setQuestion(getQuestion());
@@ -51,6 +53,7 @@ function QuestionTest() {
    setRound(0);
    setGameOver(false);
    restartGame();
+   clearPartyMessage();
    setAnswered(false);
    setQuestion(getQuestion());
  };
@@ -61,7 +64,7 @@ function QuestionTest() {
  }
 
  if (!question) {
-   return <div className="message">Loading...</div>;
+   return <div className="message">Carregant...</div>;
  }
 
 
@@ -69,6 +72,7 @@ function QuestionTest() {
   <div className="question-test">
     <h2 className="question">{question.title}</h2>
     <h4 className="hint">{question.answer}</h4>
+    <PartyMessage />
     {["option1", "option2", "option3", "option4"].map((optionKey, index) => (
       <button
         key={index}
