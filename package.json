@@ -1,18 +1,18 @@
 {
   "name": "geotest",
   "version": "1.0.0",
-  "description": "Minijocs mobils en línea sobre geografía i dades demogràfiques.",
-  "main": "main.js",
+  "description": "Un joc curt de geografia de Catalunya.",
   "type": "module",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node scripts/build.mjs",
+    "dev": "npm run build && node scripts/serve.mjs",
+    "start": "npm run dev",
+    "test": "node --test"
   },
   "author": "TelesforoAleix",
   "license": "ISC",
-  "dependencies": {
-    "body-parser": "^1.20.2",
-    "ejs": "^3.1.10",
-    "express": "^4.19.2",
-    "nodejs": "^0.0.0"
+  "engines": {
+    "node": ">=20"
   }
 }
